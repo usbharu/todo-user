@@ -1,7 +1,6 @@
 package dev.usbharu.todouser2.config
 
 import dev.usbharu.todouser2.jwk.JwtService.Companion.genKey
-import jakarta.servlet.http.HttpServletRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -17,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.util.matcher.RequestMatcher
 
 
 @Configuration
@@ -28,6 +26,7 @@ class SpringSecurityConfig {
         http {
             authorizeHttpRequests {
                 authorize("/.well-known/**", permitAll)
+                authorize("/api/**", authenticated)
                 authorize(anyRequest, permitAll)
             }
             csrf {
