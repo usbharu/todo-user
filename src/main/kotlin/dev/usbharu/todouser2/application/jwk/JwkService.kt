@@ -9,8 +9,11 @@ import java.security.KeyPairGenerator
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 
+/**
+ * Jwksの生成サービス
+ */
 @Service
-class JwtService(@Autowired(required = false) val jwtKeys: JwtKeys = genKey()) {
+class JwkService(@Autowired(required = false) val jwtKeys: JwtKeys = genKey()) {
     fun jwks(): JWKSet {
         val rSAKey = RSAKey.Builder(jwtKeys.publicKey)
             .keyIDFromThumbprint()

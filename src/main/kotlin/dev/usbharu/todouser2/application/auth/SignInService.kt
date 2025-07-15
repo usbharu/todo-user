@@ -5,8 +5,11 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.stereotype.Service
 
+/**
+ * ログインのアプリケーションサービス
+ */
 @Service
-class AuthService(private val authenticationManager: AuthenticationManager, private val jwtSigner: JwtSigner) {
+class SignInService(private val authenticationManager: AuthenticationManager, private val jwtSigner: JwtSigner) {
     suspend fun signIn(username: String, password: String): String {
         val authenticate =
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(username, password))
