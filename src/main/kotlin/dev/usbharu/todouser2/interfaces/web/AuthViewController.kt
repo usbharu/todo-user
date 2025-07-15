@@ -3,6 +3,10 @@ package dev.usbharu.todouser2.interfaces.web
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 
+/**
+ * 検証用の認証ページ表示用コントローラ
+ *
+ */
 @Controller
 class AuthViewController {
     @GetMapping("/sign_in")

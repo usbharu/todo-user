@@ -5,6 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 
+/**
+ * Spring Security用のログインユーザー取得サービス
+ */
 @Component
 class MyUserDetailsService(private val userRepository: UserRepository) : UserDetailsService {
 

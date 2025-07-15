@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * userの情報を返すAPI
+ *
+ * /api/v1/users/iでログイン中のユーザーの除法を取得できる
+ */
 @RestController
 @RequestMapping("/api/v1/users")
 class UsersController(private val userRepository: UserRepository) {

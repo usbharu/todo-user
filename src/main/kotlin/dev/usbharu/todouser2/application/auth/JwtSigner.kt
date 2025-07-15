@@ -6,11 +6,14 @@ import com.nimbusds.jose.JWSHeader
 import com.nimbusds.jose.crypto.RSASSASigner
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
-import dev.usbharu.todouser2.application.jwk.JwtService.Companion.genKey
+import dev.usbharu.todouser2.application.jwk.JwkService.Companion.genKey
 import dev.usbharu.todouser2.config.JwtKeys
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
+/**
+ * Jwtに署名するサービス
+ */
 @Service
 class JwtSigner(@Autowired(required = false)  jwtKeys: JwtKeys = genKey()) {
 

@@ -2,6 +2,10 @@ package dev.usbharu.todouser2.domain.users
 
 import java.util.*
 
+/**
+ * ユーザーID
+ */
+
 @JvmInline
 value class UserId(val id: UUID) {
     companion object {

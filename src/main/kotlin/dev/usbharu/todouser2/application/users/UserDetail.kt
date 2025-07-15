@@ -3,6 +3,9 @@ package dev.usbharu.todouser2.application.users
 import dev.usbharu.todouser2.domain.users.UserId
 import java.time.Instant
 
+/**
+ * 詳細なユーザー情報
+ */
 class UserDetail(username: String, userId: UserId, val createdAt: Instant) : User(username, userId) {
     companion object{
         fun from(user: dev.usbharu.todouser2.domain.users.User):UserDetail{
