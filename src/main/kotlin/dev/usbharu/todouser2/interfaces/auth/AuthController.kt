@@ -1,6 +1,8 @@
-package dev.usbharu.todouser2.auth
+package dev.usbharu.todouser2.interfaces.auth
 
-import dev.usbharu.todouser2.users.UserDetail
+import dev.usbharu.todouser2.application.auth.AuthService
+import dev.usbharu.todouser2.application.auth.SignUpService
+import dev.usbharu.todouser2.application.users.UserDetail
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

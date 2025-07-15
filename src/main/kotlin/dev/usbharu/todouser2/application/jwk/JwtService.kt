@@ -1,4 +1,4 @@
-package dev.usbharu.todouser2.jwk
+package dev.usbharu.todouser2.application.jwk
 
 import com.nimbusds.jose.jwk.JWKSet
 import com.nimbusds.jose.jwk.RSAKey

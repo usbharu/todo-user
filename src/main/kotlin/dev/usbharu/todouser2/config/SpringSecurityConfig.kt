@@ -1,6 +1,6 @@
 package dev.usbharu.todouser2.config
 
-import dev.usbharu.todouser2.jwk.JwtService.Companion.genKey
+import dev.usbharu.todouser2.application.jwk.JwtService.Companion.genKey
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

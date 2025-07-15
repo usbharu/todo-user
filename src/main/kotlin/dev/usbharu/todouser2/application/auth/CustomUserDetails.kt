@@ -1,6 +1,6 @@
-package dev.usbharu.todouser2.auth
+package dev.usbharu.todouser2.application.auth
 
-import dev.usbharu.todouser2.users.UserId
+import dev.usbharu.todouser2.domain.users.UserId
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 

@@ -1,11 +1,12 @@
 package dev.usbharu.todouser2
 
-import dev.usbharu.todouser2.users.UserId
+import dev.usbharu.todouser2.domain.users.UserId
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class UUIDUserIdGenerator : UserIdGenerator {
     override suspend fun gen(): UserId {
-        return UserId(java.util.UUID.randomUUID())
+        return UserId(UUID.randomUUID())
     }
 }

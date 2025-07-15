@@ -1,5 +1,6 @@
-package dev.usbharu.todouser2.users
+package dev.usbharu.todouser2.application.users
 
+import dev.usbharu.todouser2.domain.users.UserId
 import java.time.Instant
 
 class UserDetail(username: String, userId: UserId, val createdAt: Instant) : User(username, userId) {

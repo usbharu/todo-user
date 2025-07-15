@@ -1,14 +1,13 @@
-package dev.usbharu.todouser2.auth
+package dev.usbharu.todouser2.application.auth
 
-import com.nimbusds.jose.JOSEObject
 import com.nimbusds.jose.JOSEObjectType
 import com.nimbusds.jose.JWSAlgorithm
 import com.nimbusds.jose.JWSHeader
 import com.nimbusds.jose.crypto.RSASSASigner
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
+import dev.usbharu.todouser2.application.jwk.JwtService.Companion.genKey
 import dev.usbharu.todouser2.config.JwtKeys
-import dev.usbharu.todouser2.jwk.JwtService.Companion.genKey
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

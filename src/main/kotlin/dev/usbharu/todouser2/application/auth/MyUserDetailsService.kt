@@ -1,4 +1,4 @@
-package dev.usbharu.todouser2.auth
+package dev.usbharu.todouser2.application.auth
 
 import dev.usbharu.todouser2.domain.users.UserRepository
 import org.springframework.security.core.userdetails.UserDetails

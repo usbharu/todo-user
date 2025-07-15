@@ -1,5 +1,6 @@
-package dev.usbharu.todouser2.jwk
+package dev.usbharu.todouser2.interfaces.api.wellknown
 
+import dev.usbharu.todouser2.application.jwk.JwtService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

@@ -1,4 +1,4 @@
-package dev.usbharu.todouser2.auth
+package dev.usbharu.todouser2.interfaces.auth
 
 data class SignInDto(
     val username: String,

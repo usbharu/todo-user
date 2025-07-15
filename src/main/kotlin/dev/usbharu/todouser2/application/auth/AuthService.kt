@@ -1,7 +1,6 @@
-package dev.usbharu.todouser2.auth
+package dev.usbharu.todouser2.application.auth
 
 import com.nimbusds.jwt.JWTClaimsSet
-import dev.usbharu.todouser2.users.UserDetail
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.stereotype.Service

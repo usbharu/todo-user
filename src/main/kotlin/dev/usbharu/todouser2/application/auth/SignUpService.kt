@@ -1,9 +1,10 @@
-package dev.usbharu.todouser2.auth
+package dev.usbharu.todouser2.application.auth
 
 import dev.usbharu.todouser2.UserIdGenerator
+import dev.usbharu.todouser2.application.users.UserDetail
 import dev.usbharu.todouser2.domain.users.User
 import dev.usbharu.todouser2.domain.users.UserRepository
-import dev.usbharu.todouser2.users.UserDetail
+import dev.usbharu.todouser2.interfaces.auth.SignUpDto
 import org.springframework.data.jdbc.core.JdbcAggregateTemplate
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
