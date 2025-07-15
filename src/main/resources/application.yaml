@@ -12,3 +12,13 @@ application:
       public-key:
       private-key:
 
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    enable:
+      hikaricp: true
