@@ -14,11 +14,16 @@ allprojects {
             plugin("org.graalvm.buildtools.native")
         }
     }
+    if (properties.get("useGitVersion") == "false") {
+        version = "UNKNWON"
+    } else {
+        val gitVersion: groovy.lang.Closure<String> by extra
+        version = gitVersion()
+    }
 }
 
 group = "dev.usbharu"
-val gitVersion: groovy.lang.Closure<String> by extra
-version = gitVersion()
+
 
 java {
     toolchain {

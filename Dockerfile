@@ -1,1 +1,3 @@
+#このファイルはCIで利用されるヘルパー
+#ローカルで利用する場合はGradleタスク bootBuildImage を実行すると同等のものが生成される
 FROM todo-user
