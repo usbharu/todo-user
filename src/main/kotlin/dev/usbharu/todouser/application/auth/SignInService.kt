@@ -1,6 +1,7 @@
 package dev.usbharu.todouser.application.auth
 
 import com.nimbusds.jwt.JWTClaimsSet
+import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.stereotype.Service
@@ -11,9 +12,9 @@ import org.springframework.stereotype.Service
 @Service
 class SignInService(private val authenticationManager: AuthenticationManager, private val jwtSigner: JwtSigner) {
     suspend fun signIn(username: String, password: String): String {
-        val authenticate =
-            authenticationManager.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(username, password))
-
+        logger.debug("Signing in with username: {}", username)
+        authenticationManager.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(username, password))
+        logger.debug("Successfully password authenticate")
         val build = JWTClaimsSet.Builder()
             .issuer("user")
             .claim("scope", setOf("read", "write"))
@@ -21,7 +22,11 @@ class SignInService(private val authenticationManager: AuthenticationManager, pr
             .build()
 
         val signedJWT = jwtSigner.sign(build)
-
+        logger.debug("Successfully signed JWT")
         return signedJWT.serialize()
+    }
+
+    companion object {
+        private val logger = LoggerFactory.getLogger(SignInService::class.java)
     }
 }

@@ -11,6 +11,9 @@ application:
     jwt:
       public-key:
       private-key:
+  logging:
+    request-id-header: "X-REQUEST-ID"
+    request-id-key: "request_id"
 
 management:
   server:
@@ -22,3 +25,7 @@ management:
   metrics:
     enable:
       hikaricp: true
+#logging:
+#  structured:
+#    format:
+#      console: logstash
