@@ -7,7 +7,7 @@ import java.util.*
 
 @Component
 class UUIDUserIdGenerator : UserIdGenerator {
-    override suspend fun gen(): UserId {
+    override fun gen(): UserId {
         return UserId(UUID.randomUUID())
     }
 }
