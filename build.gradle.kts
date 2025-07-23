@@ -6,6 +6,7 @@ plugins {
     id("com.palantir.git-version") version "4.0.0"
     id("io.spring.dependency-management") version "1.1.7"
     id("org.graalvm.buildtools.native") version "0.10.6" apply false
+    id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
 }
 
 allprojects {
@@ -55,6 +56,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.flywaydb:flyway-core")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")

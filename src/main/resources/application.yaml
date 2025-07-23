@@ -29,3 +29,9 @@ management:
 #  structured:
 #    format:
 #      console: logstash
+springdoc:
+  api-docs:
+    version: openapi_3_0
+
+  cache:
+    disabled: true
