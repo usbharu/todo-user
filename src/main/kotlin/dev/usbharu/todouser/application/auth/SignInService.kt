@@ -13,12 +13,17 @@ import org.springframework.stereotype.Service
 class SignInService(private val authenticationManager: AuthenticationManager, private val jwtSigner: JwtSigner) {
     suspend fun signIn(username: String, password: String): String {
         logger.debug("Signing in with username: {}", username)
-        authenticationManager.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(username, password))
+        val authenticate =
+            authenticationManager.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(username, password))
         logger.debug("Successfully password authenticate")
+        val userDetails = authenticate.principal as? CustomUserDetails
+        if (userDetails == null) {
+            throw IllegalStateException("userDetails is null")
+        }
         val build = JWTClaimsSet.Builder()
             .issuer("user")
             .claim("scope", setOf("read", "write"))
-            .subject(username)
+            .subject(userDetails.userId.toString())
             .build()
 
         val signedJWT = jwtSigner.sign(build)
