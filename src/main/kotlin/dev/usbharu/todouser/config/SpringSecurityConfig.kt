@@ -2,6 +2,8 @@ package dev.usbharu.todouser.config
 
 import dev.usbharu.todouser.application.jwk.JwkService.Companion.genKey
 import dev.usbharu.todouser.infra.MdcXRequestIdFilter
+import dev.usbharu.todouser.infra.ProblemDetailsAccessDeniedHandler
+import dev.usbharu.todouser.infra.ProblemDetailsAuthenticationEntryPoint
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -12,6 +14,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.invoke
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -22,10 +25,14 @@ import org.springframework.security.web.context.SecurityContextHolderFilter
 
 
 @Configuration
-@EnableWebSecurity()
+@EnableWebSecurity(debug = true)
 class SpringSecurityConfig {
     @Bean
-    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+    fun securityFilterChain(
+        http: HttpSecurity,
+        problemDetailsAuthenticationEntryPoint: ProblemDetailsAuthenticationEntryPoint,
+        problemDetailsAccessDeniedHandler: ProblemDetailsAccessDeniedHandler
+    ): SecurityFilterChain {
         http {
             authorizeHttpRequests {
                 authorize("/.well-known/**", permitAll)
@@ -40,10 +47,19 @@ class SpringSecurityConfig {
             }
             oauth2ResourceServer {
                 jwt {
-                    jwt { }
+
                 }
+                authenticationEntryPoint = problemDetailsAuthenticationEntryPoint
+                accessDeniedHandler = problemDetailsAccessDeniedHandler
             }
             addFilterBefore<SecurityContextHolderFilter>(MdcXRequestIdFilter(requestIdKey, requestIdHeaderName))
+            exceptionHandling {
+                authenticationEntryPoint = problemDetailsAuthenticationEntryPoint
+                accessDeniedHandler = problemDetailsAccessDeniedHandler
+            }
+            sessionManagement {
+                sessionCreationPolicy = SessionCreationPolicy.STATELESS
+            }
         }
         return http.build()
     }
