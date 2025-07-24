@@ -4,14 +4,15 @@ import dev.usbharu.todouser.application.users.UserDetail
 import dev.usbharu.todouser.domain.users.UserId
 import dev.usbharu.todouser.domain.users.UserRepository
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.headers.Header
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
+import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.http.ProblemDetail
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -33,7 +34,7 @@ class UsersController(private val userRepository: UserRepository) {
                 content = [
                     Content(
                         mediaType = MediaType.APPLICATION_JSON_VALUE,
-                        schema = Schema(implementation = UserDetails::class),
+                        schema = Schema(implementation = UserDetail::class),
                         examples = [
                             ExampleObject(
                                 name = "ログイン中のユーザー取得成功",
@@ -47,6 +48,18 @@ class UsersController(private val userRepository: UserRepository) {
             ),
             ApiResponse(
                 responseCode = "401",
+                headers = [
+                    Header(
+                        name = HttpHeaders.WWW_AUTHENTICATE,
+                        description = "401となった原因",
+                        examples = [
+                            ExampleObject(
+                                name = "トークンがJWTの形式じゃない",
+                                value = "Bearer realm=\"api\", error=\"invalid_token\", error_description=\"An error occurred while attempting to decode the Jwt: Malformed token\""
+                            )
+                        ]
+                    )
+                ],
                 content = [
                     Content(
                         mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -66,7 +79,7 @@ class UsersController(private val userRepository: UserRepository) {
                                 name = "ログイントークンが不正",
                                 value = """{
   "type": "about:blank",
-  "title": "Authentication Failed",
+  "title": "invalid_token",
   "status": 401,
   "detail": "An error occurred while attempting to decode the Jwt: Malformed token",
   "instance": "/api/v1/users/i"
@@ -77,7 +90,7 @@ class UsersController(private val userRepository: UserRepository) {
                                 description = "トークンが古いなどの可能性がある",
                                 value = """{
   "type": "about:blank",
-  "title": "Authentication Failed",
+  "title": "invalid_token",
   "status": 401,
   "detail": "An error occurred while attempting to decode the Jwt: Signed JWT rejected: Invalid signature",
   "instance": "/api/v1/users/i"
