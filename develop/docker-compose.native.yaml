@@ -1,0 +1,29 @@
+services:
+  todo-user:
+    image: ghcr.io/usbharu/todo-user:latest-native
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/todo-user"
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      LOGGING_STRUCTURED_FORMAT_CONSOLE: logstash
+      APPLICATION_AUTH_JWT_PUBLIC_KEY: file:public_key.pem
+      APPLICATION_AUTH_JWT_PRIVATE_KEY: file:private_key.pem
+    volumes:
+      - ../public_key.pem:/workspace/public_key.pem #プロジェクトルートに鍵を作成しておいてください
+      - ../private_key.pem:/workspace/private_key.pem
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: todo-user
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
