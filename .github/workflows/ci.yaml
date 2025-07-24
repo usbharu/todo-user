@@ -72,6 +72,49 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  nativeBuild:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gradle Wrapper Validation
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
+          gradle-home-cache-cleanup: true
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: ./gradlew :bootBuildImage --imageName=todo-user:latest -PenableNativeBuild=true
+      - name: metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/usbharu/todo-user
+          tags: |
+            type=semver,pattern=v{{version}}-native
+            type=raw,value=native-latest
+            type=sha,prefix=,suffix=native,format=short
+      - name: build
+        uses: docker/build-push-action@v6
+        with:
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
   openapi:
     needs: test
     runs-on: ubuntu-latest
