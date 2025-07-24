@@ -6,6 +6,9 @@ spring:
     url: jdbc:h2:./test;DB_CLOSE_ON_EXIT=TRUE;MODE=PostgreSQL
     username: sa
     password:
+  mvc:
+    problemdetails:
+      enabled: true
 application:
   auth:
     jwt:
