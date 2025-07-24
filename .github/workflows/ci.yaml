@@ -106,8 +106,8 @@ jobs:
           images: ghcr.io/usbharu/todo-user
           tags: |
             type=semver,pattern=v{{version}}-native
-            type=raw,value=native-latest
-            type=sha,prefix=,suffix=native,format=short
+            type=raw,value=latest-native
+            type=sha,prefix=,suffix=-native,format=short
       - name: build
         uses: docker/build-push-action@v6
         with:
