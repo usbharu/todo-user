@@ -28,7 +28,7 @@ import org.springframework.security.web.context.SecurityContextHolderFilter
 
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 @SecurityScheme(
     name = "jwt",
     type = SecuritySchemeType.HTTP,
