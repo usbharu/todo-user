@@ -9,10 +9,10 @@ import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
-import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.http.MediaType
 import org.springframework.http.ProblemDetail
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 
 /**
@@ -63,7 +63,7 @@ class AuthController(private val signUpService: SignUpService, private val signI
     fun signUpJson(
         @io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "作成するユーザーオブジェクト", required = true
-        ) @RequestBody dto: SignUpDto
+        ) @RequestBody @Validated dto: SignUpDto
     ): UserDetail {
         return signUpService.signUp(dto)
     }
@@ -78,7 +78,7 @@ class AuthController(private val signUpService: SignUpService, private val signI
         consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    suspend fun signUpForm(@ModelAttribute dto: SignUpDto): ResponseEntity<UserDetail?> {
+    suspend fun signUpForm(@ModelAttribute @Validated dto: SignUpDto): ResponseEntity<UserDetail?> {
         return ResponseEntity.ok(signUpService.signUp(dto))
     }
 
