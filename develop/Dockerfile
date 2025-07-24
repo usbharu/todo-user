@@ -1,4 +1,4 @@
-FROM gradle:8.14.2-jdk21-jammy AS builder
+FROM gradle:8.14.3-jdk21-jammy AS builder
 
 WORKDIR /app
 
