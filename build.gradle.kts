@@ -56,7 +56,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.flywaydb:flyway-core")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.8.9")
+    developmentOnly("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
@@ -82,4 +83,8 @@ tasks.withType<Test> {
 
 springBoot {
     buildInfo()
+}
+
+openApi {
+    apiDocsUrl.set("http://localhost:8081/actuator/openapi")
 }

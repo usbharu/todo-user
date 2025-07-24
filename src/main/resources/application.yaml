@@ -32,6 +32,6 @@ management:
 springdoc:
   api-docs:
     version: openapi_3_0
-
   cache:
     disabled: true
+  use-management-port: true
