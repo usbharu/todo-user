@@ -23,7 +23,7 @@ class SignInService(private val authenticationManager: AuthenticationManager, pr
         val build = JWTClaimsSet.Builder()
             .issuer("user")
             .claim("scope", setOf("read", "write"))
-            .subject(userDetails.userId.toString())
+            .subject(userDetails.userId.id.toString())
             .build()
 
         val signedJWT = jwtSigner.sign(build)
