@@ -1,4 +1,4 @@
-FROM gradle:8.14.2-jdk21-jammy AS builder
+FROM gradle:8.14.3-jdk21-jammy AS builder
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ COPY .git ./.git
 
 RUN gradle bootJar --no-daemon -PuseGitVersion=true
 
-FROM eclipse-temurin:21-jre-jammy
+FROM eclipse-temurin:21.0.7_6-jre-jammy
 
 WORKDIR /app
 
