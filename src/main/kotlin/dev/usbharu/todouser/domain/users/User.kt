@@ -10,4 +10,10 @@ import java.time.Instant
  * そのままDBに保存されるエンティティでもある
  */
 @Table("USERS")
-class User(val username: String, @Id val userId: UserId, val password: String?, val createdAt: Instant)
+class User(val username: String, @Id val userId: UserId, val password: String?, val createdAt: Instant) {
+    init {
+        require(username.length <= 255) {
+            "username must be 255 characters long"
+        }
+    }
+}
