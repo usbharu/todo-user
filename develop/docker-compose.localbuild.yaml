@@ -13,7 +13,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       LOGGING_STRUCTURED_FORMAT_CONSOLE: logstash
   db:
-    image: postgres:15
+    image: postgres:17
     environment:
       POSTGRES_DB: todo-user
       POSTGRES_USER: postgres
