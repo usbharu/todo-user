@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.http.ProblemDetail
@@ -39,8 +40,10 @@ class UsersController(private val userRepository: UserRepository) {
                             ExampleObject(
                                 name = "ログイン中のユーザー取得成功",
                                 value = """{
-                                    
-                                    }"""
+  "username": "ab",
+  "userId": "77b714bc-f064-42ad-b01c-ad4a1d4bd87e",
+  "createdAt": "2025-07-24T15:06:06.647007100Z"
+}"""
                             )
                         ]
                     )
@@ -102,6 +105,7 @@ class UsersController(private val userRepository: UserRepository) {
             )
         ]
     )
+    @SecurityRequirement(name = "jwt")
     @GetMapping("i", produces = [MediaType.APPLICATION_JSON_VALUE])
     suspend fun getI(@AuthenticationPrincipal jwt: Jwt): UserDetail {
         val user = userRepository.findById(UserId.fromString(jwt.subject)).getOrNull()

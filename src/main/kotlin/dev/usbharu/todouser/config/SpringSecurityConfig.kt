@@ -4,6 +4,9 @@ import dev.usbharu.todouser.application.jwk.JwkService.Companion.genKey
 import dev.usbharu.todouser.infra.MdcXRequestIdFilter
 import dev.usbharu.todouser.infra.ProblemDetailsAccessDeniedHandler
 import dev.usbharu.todouser.infra.ProblemDetailsAuthenticationEntryPoint
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType
+import io.swagger.v3.oas.annotations.security.SecurityScheme
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -26,6 +29,14 @@ import org.springframework.security.web.context.SecurityContextHolderFilter
 
 @Configuration
 @EnableWebSecurity(debug = true)
+@SecurityScheme(
+    name = "jwt",
+    type = SecuritySchemeType.HTTP,
+    scheme = "bearer",
+    `in` = SecuritySchemeIn.HEADER,
+    description = "JWTを利用したトークン",
+    bearerFormat = "JWT"
+)
 class SpringSecurityConfig {
     @Bean
     fun securityFilterChain(
