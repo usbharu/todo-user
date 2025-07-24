@@ -42,7 +42,7 @@ jobs:
 
       - name: Copy generated file
         run: |
-          cp ./source-repo/build/openapi.json ./destination-repo/user-server.yaml
+          cp ./source-repo/build/openapi.json ./destination-repo/user-server.json
 
       # -----------------------------------------------------
       # 3. Pull Requestの作成と自動マージの設定
