@@ -7,6 +7,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
     id("org.graalvm.buildtools.native") version "0.11.0" apply false
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
+    id("io.gitlab.arturbosch.detekt") version "1.23.8"
 }
 
 allprojects {
@@ -87,4 +88,12 @@ springBoot {
 
 openApi {
     apiDocsUrl.set("http://localhost:8081/actuator/openapi")
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.jetbrains.kotlin") {
+            useVersion(io.gitlab.arturbosch.detekt.getSupportedKotlinVersion())
+        }
+    }
 }
