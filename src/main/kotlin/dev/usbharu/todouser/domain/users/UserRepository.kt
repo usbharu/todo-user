@@ -10,5 +10,5 @@ import java.util.*
  */
 interface UserRepository : CrudRepository<User, UUID> {
     fun findByUsername(username: String): User?
-    fun existsByUsername(username: String):Boolean
+    fun existsByUsername(username: String): Boolean
 }

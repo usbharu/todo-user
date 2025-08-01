@@ -9,7 +9,6 @@ import java.util.*
 
 class MdcXRequestIdFilter(val requestIdKey: String, val requestIdHeaderName: String) : OncePerRequestFilter() {
 
-
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
