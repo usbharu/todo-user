@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "2.2.0"
-    kotlin("plugin.spring") version "2.2.0"
+    kotlin("jvm") version "2.0.21"
+    kotlin("plugin.spring") version "2.0.21"
     id("org.springframework.boot") version "3.5.4"
     id("com.gorylenko.gradle-git-properties") version "2.5.2"
     id("com.palantir.git-version") version "4.0.0"
@@ -69,6 +69,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.8")
 
 }
 
@@ -96,4 +97,13 @@ configurations.all {
             useVersion(io.gitlab.arturbosch.detekt.getSupportedKotlinVersion())
         }
     }
+}
+
+detekt{
+    toolVersion = "1.23.8"
+    config.setFrom(file("config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+    autoCorrect = true
+    parallel = true
+    source = files("src/main/kotlin")
 }
