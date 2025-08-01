@@ -18,14 +18,17 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(".well-known")
 class JwksController(private val jwkService: JwkService) {
     @Operation(
-        summary = "JWKsエンドポイント", description = "RFC7517", responses = [ApiResponse(
-            responseCode = "200",
-            description = "Json Web Key Setを返します",
-            content = [
-                Content(
-                    examples = [
-                        ExampleObject(
-                            value = """{
+        summary = "JWKsエンドポイント",
+        description = "RFC7517",
+        responses = [
+            ApiResponse(
+                responseCode = "200",
+                description = "Json Web Key Setを返します",
+                content = [
+                    Content(
+                        examples = [
+                            ExampleObject(
+                                value = """{
   "keys": [
     {
       "kty": "RSA",
@@ -35,11 +38,12 @@ class JwksController(private val jwkService: JwkService) {
     }
   ]
 }"""
-                        )
-                    ]
-                )
-            ]
-        )]
+                            )
+                        ]
+                    )
+                ]
+            )
+        ]
     )
     @GetMapping("jwks.json", produces = [MediaType.APPLICATION_JSON_VALUE])
     suspend fun jwks(): ResponseEntity<Map<String?, Any?>?> {

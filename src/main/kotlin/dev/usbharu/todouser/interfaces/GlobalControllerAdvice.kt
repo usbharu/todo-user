@@ -33,7 +33,6 @@ class GlobalControllerAdvice(private val messageSource: MessageSource) {
             }
             setProperty("errors", errorDetails)
         }
-
     }
 
     @ExceptionHandler(AuthenticationException::class)
@@ -53,5 +52,7 @@ class GlobalControllerAdvice(private val messageSource: MessageSource) {
 }
 
 data class ValidationErrorDetail(
-    val field: String, val message: String?, val rejectedValue: String?
+    val field: String,
+    val message: String?,
+    val rejectedValue: String?
 )

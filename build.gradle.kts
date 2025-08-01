@@ -1,12 +1,13 @@
 plugins {
-    kotlin("jvm") version "2.2.0"
-    kotlin("plugin.spring") version "2.2.0"
+    kotlin("jvm") version "2.0.21"
+    kotlin("plugin.spring") version "2.0.21"
     id("org.springframework.boot") version "3.5.4"
     id("com.gorylenko.gradle-git-properties") version "2.5.2"
     id("com.palantir.git-version") version "4.0.0"
     id("io.spring.dependency-management") version "1.1.7"
     id("org.graalvm.buildtools.native") version "0.11.0" apply false
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
+    id("io.gitlab.arturbosch.detekt") version "1.23.8"
 }
 
 allprojects {
@@ -68,6 +69,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.8")
 
 }
 
@@ -87,4 +89,21 @@ springBoot {
 
 openApi {
     apiDocsUrl.set("http://localhost:8081/actuator/openapi")
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.jetbrains.kotlin") {
+            useVersion(io.gitlab.arturbosch.detekt.getSupportedKotlinVersion())
+        }
+    }
+}
+
+detekt{
+    toolVersion = "1.23.8"
+    config.setFrom(file("config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+    autoCorrect = true
+    parallel = true
+    source = files("src/main/kotlin")
 }

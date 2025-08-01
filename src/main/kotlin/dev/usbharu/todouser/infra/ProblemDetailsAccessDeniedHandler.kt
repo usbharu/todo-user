@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component
 import java.net.URI
 import java.util.*
 
-
 @Component
 class ProblemDetailsAccessDeniedHandler(private val objectMapper: ObjectMapper) : AccessDeniedHandler {
     override fun handle(
@@ -23,18 +22,17 @@ class ProblemDetailsAccessDeniedHandler(private val objectMapper: ObjectMapper) 
     ) {
         val status = HttpStatus.FORBIDDEN
 
-
         // ★ WWW-Authenticateヘッダーの生成
         val wwwAuthenticateDetails = StringJoiner(", ", "Bearer ", "")
         wwwAuthenticateDetails.add("realm=\"api\"")
         wwwAuthenticateDetails.add("error=\"insufficient_scope\"")
-        wwwAuthenticateDetails.add("error_description=\"The request requires higher privileges than provided by the access token.\"")
-
+        wwwAuthenticateDetails.add(
+            "error_description=\"The request requires higher privileges than provided by the access token.\""
+        )
 
         // 本来は必要なスコープ情報をここに含めるのが望ましい
         // wwwAuthenticateDetails.add("scope=\"admin:read\"");
         response.addHeader(HttpHeaders.WWW_AUTHENTICATE, wwwAuthenticateDetails.toString())
-
 
         // ProblemDetailの生成
         val problemDetail = ProblemDetail.forStatusAndDetail(
@@ -44,7 +42,6 @@ class ProblemDetailsAccessDeniedHandler(private val objectMapper: ObjectMapper) 
         problemDetail.title = "Forbidden"
         problemDetail.setType(URI.create("https://example.com/probs/forbidden"))
         problemDetail.instance = URI.create(request.requestURI)
-
 
         // レスポンスの設定
         response.status = status.value()

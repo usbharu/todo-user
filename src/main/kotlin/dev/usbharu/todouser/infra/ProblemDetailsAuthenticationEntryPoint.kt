@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component
 import java.net.URI
 import java.util.*
 
-
 @Component
 class ProblemDetailsAuthenticationEntryPoint(private val objectMapper: ObjectMapper) : AuthenticationEntryPoint {
     override fun commence(
@@ -27,11 +26,9 @@ class ProblemDetailsAuthenticationEntryPoint(private val objectMapper: ObjectMap
         var errorMessage: String? = authException.message
         val problemDetail = ProblemDetail.forStatusAndDetail(status, errorMessage)
 
-
         // ★ WWW-Authenticateヘッダーの生成
         if (authException is OAuth2AuthenticationException) {
             val error: OAuth2Error = authException.error
-
 
             // ProblemDetailの情報をOAuth2Errorの内容で上書き
             errorMessage = error.description
@@ -53,7 +50,6 @@ class ProblemDetailsAuthenticationEntryPoint(private val objectMapper: ObjectMap
         }
 
         problemDetail.instance = URI.create(request.requestURI)
-
 
         // レスポンスの設定
         response.status = status.value()

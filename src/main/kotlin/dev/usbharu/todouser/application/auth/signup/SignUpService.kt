@@ -1,6 +1,5 @@
 package dev.usbharu.todouser.application.auth.signup
 
-import dev.usbharu.todouser.application.auth.signup.FailedSignUpException
 import dev.usbharu.todouser.application.users.UserDetail
 import dev.usbharu.todouser.domain.shared.ToDoUserException
 import dev.usbharu.todouser.domain.users.User

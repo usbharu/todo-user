@@ -7,7 +7,6 @@ import org.springframework.boot.info.BuildProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
-
 @Configuration
 class OpenApiConfig(@field:Autowired(required = false) private val buildProperties: BuildProperties? = null) {
     @Bean
@@ -20,5 +19,4 @@ class OpenApiConfig(@field:Autowired(required = false) private val buildProperti
                     .description("TodoアプリバックエンドのUserと認証に関するAPI")
             )
     }
-
 }

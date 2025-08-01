@@ -23,7 +23,7 @@ class JwkService(@Autowired(required = false) val jwtKeys: JwtKeys = genKey()) {
     }
 
     companion object {
-        private var jwtKeys : JwtKeys? = null
+        private var jwtKeys: JwtKeys? = null
         fun genKey(): JwtKeys {
             jwtKeys?.let {
                 logger.trace("Use cached JWKs")
