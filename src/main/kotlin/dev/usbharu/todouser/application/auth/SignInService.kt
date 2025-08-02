@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
  */
 @Service
 class SignInService(private val authenticationManager: AuthenticationManager, private val jwtSigner: JwtSigner) {
-    suspend fun signIn(username: String, password: String): String {
+    fun signIn(username: String, password: String): String {
         logger.debug("Signing in with username: {}", username)
         val authenticate =
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(username, password))

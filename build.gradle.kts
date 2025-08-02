@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
-    kotlin("plugin.spring") version "2.0.21"
+    kotlin("jvm") version "2.2.0"
+    kotlin("plugin.spring") version "2.2.0"
     id("org.springframework.boot") version "3.5.4"
     id("com.gorylenko.gradle-git-properties") version "2.5.2"
     id("com.palantir.git-version") version "4.0.0"
@@ -8,6 +8,7 @@ plugins {
     id("org.graalvm.buildtools.native") version "0.11.0" apply false
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.8"
+    id("org.jetbrains.kotlinx.kover") version "0.9.1"
 }
 
 allprojects {
@@ -91,7 +92,7 @@ openApi {
     apiDocsUrl.set("http://localhost:8081/actuator/openapi")
 }
 
-configurations.all {
+configurations.matching { it.name == "detekt" }.all {
     resolutionStrategy.eachDependency {
         if (requested.group == "org.jetbrains.kotlin") {
             useVersion(io.gitlab.arturbosch.detekt.getSupportedKotlinVersion())
