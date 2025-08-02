@@ -261,7 +261,7 @@ class AuthController(private val signUpService: SignUpService, private val signI
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    suspend fun signInJson(
+    fun signInJson(
         @io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "ログインするユーザーオブジェクト",
             required = true,

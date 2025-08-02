@@ -109,7 +109,7 @@ class UsersController(private val userRepository: UserRepository) {
     )
     @SecurityRequirement(name = "jwt")
     @GetMapping("i", produces = [MediaType.APPLICATION_JSON_VALUE])
-    suspend fun getI(@AuthenticationPrincipal jwt: Jwt): UserDetail {
+    fun getI(@AuthenticationPrincipal jwt: Jwt): UserDetail {
         val user = userRepository.findById(UUID.fromString(jwt.subject)).getOrNull()
             ?: throw IllegalArgumentException("User not found ${jwt.subject}")
         return UserDetail.Companion.from(user)
