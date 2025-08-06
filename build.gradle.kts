@@ -108,3 +108,7 @@ detekt{
     parallel = true
     source = files("src/main/kotlin")
 }
+
+dependencyLocking {
+    lockAllConfigurations()
+}
