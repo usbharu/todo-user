@@ -58,7 +58,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.flywaydb:flyway-core")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.8.10")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.8.11")
     developmentOnly("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.10")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
