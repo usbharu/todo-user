@@ -47,9 +47,3 @@ class GlobalControllerAdvice(private val messageSource: MessageSource) : Respons
         private val logger = LoggerFactory.getLogger(GlobalControllerAdvice::class.java)
     }
 }
-
-data class ValidationErrorDetail(
-    val field: String,
-    val message: String?,
-    val rejectedValue: String?
-)

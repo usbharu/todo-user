@@ -1,7 +1,7 @@
 plugins {
-    kotlin("jvm") version "2.2.0"
-    kotlin("plugin.spring") version "2.2.0"
-    id("org.springframework.boot") version "3.5.4"
+    kotlin("jvm") version "2.2.10"
+    kotlin("plugin.spring") version "2.2.10"
+    id("org.springframework.boot") version "3.5.5"
     id("com.gorylenko.gradle-git-properties") version "2.5.2"
     id("com.palantir.git-version") version "4.0.0"
     id("io.spring.dependency-management") version "1.1.7"
@@ -58,13 +58,13 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.flywaydb:flyway-core")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.8.9")
-    developmentOnly("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.8.12")
+    developmentOnly("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.12")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
     runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("org.flywaydb:flyway-database-postgresql:11.11.0")
+    runtimeOnly("org.flywaydb:flyway-database-postgresql:11.11.2")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -111,4 +111,14 @@ detekt{
 
 dependencyLocking {
     lockAllConfigurations()
+}
+
+tasks.named("generateOpenApiDocs") {
+    doNotTrackState("Spring Bootアプリケーションが実行中にファイルをロックする可能性があるため")
+}
+tasks.named("forkedSpringBootRun") {
+    notCompatibleWithConfigurationCache("プラグインが構成キャッシュに未対応なため")
+}
+tasks.named("forkedSpringBootStop") {
+    notCompatibleWithConfigurationCache("プラグインが構成キャッシュに未対応なため")
 }
