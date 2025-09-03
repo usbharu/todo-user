@@ -26,14 +26,12 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.context.SecurityContextHolderFilter
 
-
 @Configuration
 @EnableWebSecurity(debug = false)
 @SecurityScheme(
     name = "jwt",
     type = SecuritySchemeType.HTTP,
     scheme = "bearer",
-    `in` = SecuritySchemeIn.HEADER,
     description = "JWTを利用したトークン",
     bearerFormat = "JWT"
 )
@@ -53,12 +51,11 @@ class SpringSecurityConfig {
             csrf {
                 ignoringRequestMatchers({ request ->
                     val contentType = request.contentType
-                    contentType.equals("application/json", true);
+                    contentType.equals("application/json", true)
                 })
             }
             oauth2ResourceServer {
                 jwt {
-
                 }
                 authenticationEntryPoint = problemDetailsAuthenticationEntryPoint
                 accessDeniedHandler = problemDetailsAccessDeniedHandler

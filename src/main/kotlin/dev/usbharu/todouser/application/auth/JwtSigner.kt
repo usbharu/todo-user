@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service
  * Jwtに署名するサービス
  */
 @Service
-class JwtSigner(@Autowired(required = false)  jwtKeys: JwtKeys = genKey()) {
+class JwtSigner(@Autowired(required = false) jwtKeys: JwtKeys = genKey()) {
 
     val signer = RSASSASigner(jwtKeys.privateKey)
 

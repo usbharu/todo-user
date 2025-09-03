@@ -5,8 +5,9 @@ import io.micrometer.core.instrument.Gauge
 import io.micrometer.core.instrument.MeterRegistry
 import org.springframework.stereotype.Component
 
+@Suppress("unused")
 @Component
-class UserMetrics(private val registry: MeterRegistry, private val userRepository: UserRepository) {
+class UserMetrics(registry: MeterRegistry, private val userRepository: UserRepository) {
     init {
         Gauge
             .builder("users.count", this) { getUserCount() }

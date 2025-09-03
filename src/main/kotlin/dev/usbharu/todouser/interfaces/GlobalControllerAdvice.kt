@@ -2,19 +2,27 @@ package dev.usbharu.todouser.interfaces
 
 import org.slf4j.LoggerFactory
 import org.springframework.context.MessageSource
-import org.springframework.http.HttpStatus
-import org.springframework.http.ProblemDetail
-import org.springframework.security.core.AuthenticationException
+import org.springframework.http.*
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
-import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
 @ControllerAdvice
 @RestControllerAdvice
-class GlobalControllerAdvice(private val messageSource: MessageSource) {
-    @ExceptionHandler(MethodArgumentNotValidException::class)
+class GlobalControllerAdvice(private val messageSource: MessageSource) : ResponseEntityExceptionHandler() {
+
+    override fun handleMethodArgumentNotValid(
+        ex: MethodArgumentNotValidException,
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest
+    ): ResponseEntity<in Any>? {
+        return ResponseEntity<ProblemDetail>.badRequest().body(handleMethodArgumentNotValidException(ex, request))
+    }
+
+    //    @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleMethodArgumentNotValidException(
         ex: MethodArgumentNotValidException,
         webRequest: WebRequest
@@ -33,25 +41,9 @@ class GlobalControllerAdvice(private val messageSource: MessageSource) {
             }
             setProperty("errors", errorDetails)
         }
-
-    }
-
-    @ExceptionHandler(AuthenticationException::class)
-    fun handleAuthenticationException(ex: AuthenticationException): ProblemDetail {
-        return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, ex.message)
-    }
-
-    @ExceptionHandler(RuntimeException::class)
-    fun handleRuntimeException(ex: RuntimeException): ProblemDetail {
-        logger.warn("Unhandled exception {} {}", ex::class.simpleName, ex.message)
-        return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex.message)
     }
 
     companion object {
         private val logger = LoggerFactory.getLogger(GlobalControllerAdvice::class.java)
     }
 }
-
-data class ValidationErrorDetail(
-    val field: String, val message: String?, val rejectedValue: String?
-)
