@@ -32,7 +32,6 @@ import org.springframework.security.web.context.SecurityContextHolderFilter
     name = "jwt",
     type = SecuritySchemeType.HTTP,
     scheme = "bearer",
-    `in` = SecuritySchemeIn.HEADER,
     description = "JWTを利用したトークン",
     bearerFormat = "JWT"
 )
