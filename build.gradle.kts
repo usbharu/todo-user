@@ -112,3 +112,13 @@ detekt{
 dependencyLocking {
     lockAllConfigurations()
 }
+
+tasks.named("generateOpenApiDocs") {
+    doNotTrackState("Spring Bootアプリケーションが実行中にファイルをロックする可能性があるため")
+}
+tasks.named("forkedSpringBootRun") {
+    notCompatibleWithConfigurationCache("プラグインが構成キャッシュに未対応なため")
+}
+tasks.named("forkedSpringBootStop") {
+    notCompatibleWithConfigurationCache("プラグインが構成キャッシュに未対応なため")
+}
