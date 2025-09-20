@@ -48,19 +48,26 @@ jobs:
         with:
           cache-read-only: false
           gradle-home-cache-cleanup: true
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3
+      - name: Authenticate to Google Cloud
+        id: "auth"
+        uses: "google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093" # v3.0.0
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          token_format: access_token
+          workload_identity_provider: "projects/655691487958/locations/global/workloadIdentityPools/github-ci-cd/providers/github-provider-id-api"
+          service_account: "todo-poc-id-api-ci@todo-project-471103.iam.gserviceaccount.com"
+      - name: Login to Artifact Registry
+        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
+        with:
+          registry: asia-northeast2-docker.pkg.dev
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
       - name: Build
         run: ./gradlew :bootBuildImage --imageName=todo-user:latest
       - name: metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/usbharu/todo-user
+          images: asia-northeast2-docker.pkg.dev/todo-project-471103/todo-poc-repo/todo-user
           tags: |
             type=semver,pattern=v{{version}}
             type=raw,value=latest
@@ -91,19 +98,26 @@ jobs:
         with:
           cache-read-only: false
           gradle-home-cache-cleanup: true
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3
+      - name: Authenticate to Google Cloud
+        id: "auth"
+        uses: "google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093" # v3.0.0
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          token_format: access_token
+          workload_identity_provider: "projects/655691487958/locations/global/workloadIdentityPools/github-ci-cd/providers/github-provider-id-api"
+          service_account: "todo-poc-id-api-ci@todo-project-471103.iam.gserviceaccount.com"
+      - name: Login to Artifact Registry
+        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
+        with:
+          registry: asia-northeast2-docker.pkg.dev
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
       - name: Build
         run: ./gradlew :bootBuildImage --imageName=todo-user:latest -PenableNativeBuild=true
       - name: metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/usbharu/todo-user
+          images: asia-northeast2-docker.pkg.dev/todo-project-471103/todo-poc-repo/todo-user
           tags: |
             type=semver,pattern=v{{version}}-native
             type=raw,value=latest-native
