@@ -1,6 +1,6 @@
 services:
   todo-user:
-    image: ghcr.io/usbharu/todo-user:latest-native
+    image: asia-northeast2-docker.pkg.dev/todo-project-471103/todo-poc-repo:latest-native
     ports:
       - "8080:8080"
       - "8081:8081"
