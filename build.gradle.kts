@@ -1,7 +1,7 @@
 plugins {
     kotlin("jvm") version "2.2.20"
     kotlin("plugin.spring") version "2.2.20"
-    id("org.springframework.boot") version "3.5.5"
+    id("org.springframework.boot") version "3.5.6"
     id("com.gorylenko.gradle-git-properties") version "2.5.3"
     id("com.palantir.git-version") version "4.0.0"
     id("io.spring.dependency-management") version "1.1.7"
@@ -64,7 +64,7 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
     runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("org.flywaydb:flyway-database-postgresql:11.13.0")
+    runtimeOnly("org.flywaydb:flyway-database-postgresql:11.13.1")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
