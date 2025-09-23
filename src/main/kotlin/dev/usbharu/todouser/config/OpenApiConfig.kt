@@ -27,11 +27,11 @@ class OpenApiConfig(@field:Autowired(required = false) private val buildProperti
 
             val problemDetailSchema = ObjectSchema()
                 .type("object")
-                .addProperty("type", StringSchema())
+                .addProperty("type", StringSchema().format("uri"))
                 .addProperty("title", StringSchema())
-                .addProperty("status", Schema<Int>().type("integer"))
+                .addProperty("status", Schema<Int>().type("integer").format("int32"))
                 .addProperty("detail", StringSchema())
-                .addProperty("instance", StringSchema())
+                .addProperty("instance", StringSchema().format("uri"))
                 .addProperty("errors", ArraySchema().items(validationErrorDetailSchema))
                 .required(listOf("type", "title", "status", "detail", "instance"))
 
