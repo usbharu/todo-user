@@ -4,13 +4,14 @@ import dev.usbharu.todouser.application.jwk.JwkService.Companion.genKey
 import dev.usbharu.todouser.infra.MdcXRequestIdFilter
 import dev.usbharu.todouser.infra.ProblemDetailsAccessDeniedHandler
 import dev.usbharu.todouser.infra.ProblemDetailsAuthenticationEntryPoint
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType
 import io.swagger.v3.oas.annotations.security.SecurityScheme
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.annotation.Order
+import org.springframework.http.MediaType
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.ProviderManager
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
@@ -23,8 +24,12 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer
+import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
 import org.springframework.security.web.context.SecurityContextHolderFilter
+import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher
 
 @Configuration
 @EnableWebSecurity(debug = false)
@@ -36,11 +41,46 @@ import org.springframework.security.web.context.SecurityContextHolderFilter
     bearerFormat = "JWT"
 )
 class SpringSecurityConfig {
+
+    @Order(1)
     @Bean
+    fun authorizationServerSecurityFilterChain(
+        http: HttpSecurity, problemDetailsAuthenticationEntryPoint: ProblemDetailsAuthenticationEntryPoint,
+        problemDetailsAccessDeniedHandler: ProblemDetailsAccessDeniedHandler,
+    ): SecurityFilterChain {
+        val authorizationServerConfigurer =
+            OAuth2AuthorizationServerConfigurer.authorizationServer();
+        http {
+            securityMatcher(authorizationServerConfigurer.endpointsMatcher)
+            with(authorizationServerConfigurer) {
+                authorizationServerConfigurer.oidc(org.springframework.security.config.Customizer.withDefaults())
+            }
+            authorizeHttpRequests {
+                authorize(anyRequest, authenticated)
+            }
+            exceptionHandling {
+                defaultAuthenticationEntryPointFor(
+                    LoginUrlAuthenticationEntryPoint("/sign_in?source=oauth2"),
+                    MediaTypeRequestMatcher(MediaType.TEXT_HTML)
+                )
+            }
+            oauth2ResourceServer {
+                jwt {
+
+                }
+                authenticationEntryPoint = problemDetailsAuthenticationEntryPoint
+                accessDeniedHandler = problemDetailsAccessDeniedHandler
+            }
+        }
+        return http.build()
+    }
+
+    @Bean
+    @Order(2)
     fun securityFilterChain(
         http: HttpSecurity,
         problemDetailsAuthenticationEntryPoint: ProblemDetailsAuthenticationEntryPoint,
-        problemDetailsAccessDeniedHandler: ProblemDetailsAccessDeniedHandler
+        problemDetailsAccessDeniedHandler: ProblemDetailsAccessDeniedHandler,
     ): SecurityFilterChain {
         http {
             authorizeHttpRequests {
@@ -102,4 +142,9 @@ class SpringSecurityConfig {
 
     @Value("\${application.logging.request-id-key:request_id}")
     private lateinit var requestIdKey: String
+
+    @Bean
+    fun authorizationServerSetting(): AuthorizationServerSettings {
+        return AuthorizationServerSettings.builder().build()
+    }
 }
