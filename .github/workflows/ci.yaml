@@ -56,7 +56,7 @@ jobs:
           workload_identity_provider: "projects/655691487958/locations/global/workloadIdentityPools/github-ci-cd/providers/github-provider-id-api"
           service_account: "todo-poc-id-api-ci@todo-project-471103.iam.gserviceaccount.com"
       - name: Login to Artifact Registry
-        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
         with:
           registry: asia-northeast2-docker.pkg.dev
           username: oauth2accesstoken
@@ -106,7 +106,7 @@ jobs:
           workload_identity_provider: "projects/655691487958/locations/global/workloadIdentityPools/github-ci-cd/providers/github-provider-id-api"
           service_account: "todo-poc-id-api-ci@todo-project-471103.iam.gserviceaccount.com"
       - name: Login to Artifact Registry
-        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
         with:
           registry: asia-northeast2-docker.pkg.dev
           username: oauth2accesstoken
