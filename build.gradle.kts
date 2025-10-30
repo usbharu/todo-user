@@ -8,7 +8,7 @@ plugins {
     id("org.graalvm.buildtools.native") version "0.11.2" apply false
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.8"
-    id("org.jetbrains.kotlinx.kover") version "0.9.2"
+    id("org.jetbrains.kotlinx.kover") version "0.9.3"
 }
 
 allprojects {
