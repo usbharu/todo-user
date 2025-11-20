@@ -12,7 +12,7 @@ COPY .git ./.git
 
 RUN gradle bootJar --no-daemon -PuseGitVersion=true
 
-FROM eclipse-temurin:21.0.8_9-jre-jammy
+FROM eclipse-temurin:21.0.9_10-jre-jammy
 
 WORKDIR /app
 
