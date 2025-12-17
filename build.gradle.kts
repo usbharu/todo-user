@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.2.21"
+    kotlin("jvm") version "2.3.0"
     kotlin("plugin.spring") version "2.2.21"
     id("org.springframework.boot") version "3.5.8"
     id("com.gorylenko.gradle-git-properties") version "2.5.3"
