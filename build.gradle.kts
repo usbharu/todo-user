@@ -3,7 +3,7 @@ plugins {
     kotlin("plugin.spring") version "2.2.21"
     id("org.springframework.boot") version "3.5.8"
     id("com.gorylenko.gradle-git-properties") version "2.5.3"
-    id("com.palantir.git-version") version "4.2.0"
+    id("com.palantir.git-version") version "4.3.0"
     id("io.spring.dependency-management") version "1.1.7"
     id("org.graalvm.buildtools.native") version "0.11.3" apply false
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
