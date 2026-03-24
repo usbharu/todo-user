@@ -5,7 +5,7 @@ plugins {
     id("com.gorylenko.gradle-git-properties") version "2.5.7"
     id("com.palantir.git-version") version "4.2.0"
     id("io.spring.dependency-management") version "1.1.7"
-    id("org.graalvm.buildtools.native") version "0.11.3" apply false
+    id("org.graalvm.buildtools.native") version "0.11.5" apply false
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.8"
     id("org.jetbrains.kotlinx.kover") version "0.9.3"
