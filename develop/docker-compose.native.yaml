@@ -17,7 +17,7 @@ services:
       - ../private_key.pem:/workspace/private_key.pem
 
   db:
-    image: postgres:17
+    image: postgres:18
     environment:
       POSTGRES_DB: todo-user
       POSTGRES_USER: postgres
