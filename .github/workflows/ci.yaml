@@ -73,7 +73,7 @@ jobs:
             type=raw,value=latest
             type=sha,prefix=,suffix=,format=short
       - name: build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           file: ./Dockerfile
           push: true
@@ -123,7 +123,7 @@ jobs:
             type=raw,value=latest-native
             type=sha,prefix=,suffix=-native,format=short
       - name: build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           file: ./Dockerfile
           push: true
